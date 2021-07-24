@@ -1,17 +1,55 @@
 ﻿using Binottery.Constants;
 using Binottery.Model;
 using Binottery.Utilities;
+using System;
+using System.Collections.Generic;
 
 namespace Binottery
 {
     public class ActionManager
     {
+        private Dictionary<GameState, GameActionOptions> _stateOptions;
+
+        public ActionManager()
+        {
+            this.Init();
+        }
+
+        private void Init()
+        {
+            this._stateOptions = new Dictionary<GameState, GameActionOptions>();
+            this._stateOptions[GameState.Start] = this.GetOptions(GameState.Start);
+            this._stateOptions[GameState.Continue] = this.GetOptions(GameState.Continue);
+            this._stateOptions[GameState.Started] = this.GetOptions(GameState.Started);
+            this._stateOptions[GameState.InProgress] = this.GetOptions(GameState.InProgress);
+            this._stateOptions[GameState.EndGame] = this.GetOptions(GameState.EndGame);
+        }
+
+        /// <summary>
+        /// returns the GameActionOptions object from the dictionary based on the input
+        /// </summary>
+        /// <param name="state">state</param>
+        /// <returns>GameActionOptions object</returns>
+        public GameActionOptions this[GameState state]
+        {
+            get
+            {
+                GameActionOptions ret = new GameActionOptions(state);
+                if(this._stateOptions.ContainsKey(state))
+                {
+                    ret = this._stateOptions[state];
+                }
+
+                return ret;
+            }
+        }
+
         /// <summary>
         /// method that returns an object with the next options based on the given state
         /// </summary>
         /// <param name="state">current state</param>
         /// <returns>next options object</returns>
-        public GameActionOptions GetOptions(GameState state)
+        private GameActionOptions GetOptions(GameState state)
         {
             GameActionOptions ret = new GameActionOptions(state);
             switch (state)

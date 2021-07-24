@@ -55,7 +55,7 @@ namespace Binottery.Model
         {
             this._state.GameState = this._actionManager.GetStartState(this._serializer.HasGameSaved());
             LogManager.Log.Debug("On Start | GameState=" + this._state.GameState.ToString());
-            GameConsole.PrintOptions(this._actionManager.GetOptions(this._state.GameState));
+            GameConsole.PrintOptions(this._actionManager[this._state.GameState]);
             this.Run();
         }
 
@@ -90,7 +90,7 @@ namespace Binottery.Model
                         this.NewGame();
                         GameConsole.ClearScreen();
                         GameConsole.PrintState(this._state);
-                        GameConsole.PrintOptions(this._actionManager.GetOptions(this._state.GameState));
+                        GameConsole.PrintOptions(this._actionManager[this._state.GameState]);
                         Run();
                         break;
                     }
@@ -99,7 +99,7 @@ namespace Binottery.Model
                         this.Load();
                         GameConsole.ClearScreen();
                         GameConsole.PrintState(this._state);
-                        GameConsole.PrintOptions(this._actionManager.GetOptions(this._state.GameState));
+                        GameConsole.PrintOptions(this._actionManager[this._state.GameState]);
                         Run();
                         break;
                     }
@@ -113,7 +113,7 @@ namespace Binottery.Model
 
                         GameConsole.ClearScreen();
                         GameConsole.PrintState(this._state);
-                        GameConsole.PrintOptions(this._actionManager.GetOptions(this._state.GameState));
+                        GameConsole.PrintOptions(this._actionManager[this._state.GameState]);
                         Run();
                         break;
                     }
@@ -138,7 +138,7 @@ namespace Binottery.Model
                                     this.EndGame();
                                 }
 
-                                GameConsole.PrintOptions(this._actionManager.GetOptions(this._state.GameState));
+                                GameConsole.PrintOptions(this._actionManager[this._state.GameState]);
                             }
                             else
                             {
@@ -156,7 +156,7 @@ namespace Binottery.Model
                 case GameAction.End:
                     {
                         this.EndGame(true);
-                        GameConsole.PrintOptions(this._actionManager.GetOptions(this._state.GameState));
+                        GameConsole.PrintOptions(this._actionManager[this._state.GameState]);
                         Run();
                         break;
                     }
